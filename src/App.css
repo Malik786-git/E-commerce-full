@@ -1,0 +1,34 @@
+.search{
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid grey;
+}
+.search input{
+   width: 97%;
+   padding: 5px;
+   outline: none;
+   border: none;
+}
+.search i{
+  font-size: 20px;
+  line-height: 50px;
+}
+.product-card-link{
+  text-decoration: none;
+  color: black;
+}
+.product-card-link:hover{
+  color: black;
+}
+.product-card-link:hover .product-card{
+  transition: 0.5s;
+  box-shadow: 5px 5px 10px rgb(192, 184, 184);
+}
+/* .Navbar-style{
+  display: flex !important;
+} */
+
+.paginate{
+  display: flex;
+  justify-content: center;
+}
