@@ -7,8 +7,8 @@ const Welcome = () => {
 
  useEffect(()=>{
     getUserName(localStorage.getItem('userName'))
-    console.log(userName)
- })
+  }, [])
+
 
 
   return (
@@ -21,4 +21,4 @@ const Welcome = () => {
 }
 
 
-export default Welcome
+export default Welcome;

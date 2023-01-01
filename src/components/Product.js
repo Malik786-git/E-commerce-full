@@ -24,11 +24,10 @@ const Product = () => {
 
     setStart(pageValue * 4 - 4);
     setEnd(pageValue * 4);
-    console.log("after cal", start, end);
   };
 
   const previewProduct = () => {
-    console.log("call preview", start, end);
+   
     if (start === 0) {
       setStart(start);
       setEnd(end);
@@ -38,7 +37,7 @@ const Product = () => {
     }
   };
   const nextProduct = () => {
-    console.log("call next", start, end);
+   
     if (start === product.length - 4 && end === product.length) {
       setStart(start);
       setEnd(end);
@@ -85,26 +84,26 @@ const Product = () => {
                   )
                   .map((data) => (
                     <>
-                      <div className="col-xl-3 col-lg-4 col-md-6 col-12 my-3">
+                      <div className="col-xl-3 col-lg-4 col-md-6 col-12 mb-3 ">
                         <Link
                           className="product-card-link"
-                          to={`single?id=${data.id}`}
+                          to={`single?id=${data?.id}`}
                         >
                           <Card
                             className="product-card"
-                            style={{ width: "18rem", height: "500px" }}
+                            style={{ width: "16rem", height: "450px" }}
                           >
                             <Card.Img
                               variant="top"
-                              src={data.image}
+                              src={data?.image}
                               height="300px"
                             />
                             <Card.Body className="product-desc">
-                              <Card.Title>{data.title}</Card.Title>
+                              <Card.Title>{data?.title}</Card.Title>
                               <Card.Subtitle className="mb-2 text-muted">
-                                $ {data.price}
+                                $ {data?.price}
                               </Card.Subtitle>
-                              <Card.Text>{data.description}</Card.Text>
+                              <Card.Text>{data?.description}</Card.Text>
                             </Card.Body>
                           </Card>
                         </Link>
