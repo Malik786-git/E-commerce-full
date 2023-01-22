@@ -16,20 +16,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.navbar-content{
-  color: white;
-  text-decoration: none;
-}
-.navbar-content:hover{
-  color: aqua;
-}
-.active{
-  color: aqua;
-}
-.home-form{
-  width: 50%;
-  margin: 50px auto;
-}
-.product-desc{
- overflow-y: scroll;
-}

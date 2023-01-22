@@ -10,6 +10,9 @@ import Single from './components/Single';
 import More from './components/More';
 import Login from './components/Login';
 import Protected from './components/routes/Protected';
+import AddToCard from './components/AddToCard';
+import SearchPage from './components/SearchPage';
+
 
 function App() {
 
@@ -23,6 +26,9 @@ function App() {
         <Route path='/login'  element={<Login/>}   />
         <Route path='/product'  element={<Product/>}   />
         <Route path='/product/single' element={<Single/>}   />
+        <Route path='/addtocard' element={<AddToCard/>}   />
+        <Route path='/search' element={<SearchPage/>}   />
+        <Route path='/search/single' element={<Single/>}   />
         <Route path='/welcome/'  element={<Protected Component={Welcome} />}   >
           <Route path='more'  element={<More/>} />
         </Route>

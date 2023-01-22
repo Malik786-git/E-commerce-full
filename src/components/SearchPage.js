@@ -1,56 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+//available category
+//   [
+//     "electronics",
+//     "jewelery",
+//     "men's clothing",
+//     "women's clothing"
+//   ]
 
-const Product = () => {
+const SearchPage = () => {
 
+  const [searchParams] = useSearchParams();
   const [loader, setLoader] = useState(false);
-  const [product, setProduct] = useState([]);
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(4);
+  const [product, setProduct] = useState([]);  
   const [searchInput, setSearchInput] = useState("");
 
-  useEffect(() => {
+  const productCategory = searchParams.get("category");
+  console.log(productCategory)
+  useEffect(()=>{
     setLoader(true);
-    fetch(`https://fakestoreapi.com/products?limit=16`)
-      .then((res) => res.json())
-      .then((data) => {
-        setProduct(data);
-        setLoader(false);
-      });
-  }, []);
 
-  // Pagination Functions
-  const handlePagination = (e) => {
-    const pageValue = parseInt(e.target.innerText);
+   const SearchProducts = async ()=> {
+      const res = await fetch(`https://fakestoreapi.com/products/category/jewelery`);
+       const data = await res.json();
+       setProduct(data);
+       setLoader(false);
+       console.log(data)
+   }
+    SearchProducts();
 
-    setStart(pageValue * 4 - 4);
-    setEnd(pageValue * 4);
-  };
-
-  const previewProduct = () => {
-   
-    if (start === 0) {
-      setStart(start);
-      setEnd(end);
-    } else {
-      setStart(start - 4);
-      setEnd(end - 4);
-    }
-  };
-  const nextProduct = () => {
-   
-    if (start === product.length - 4 && end === product.length) {
-      setStart(start);
-      setEnd(end);
-    } else {
-      setStart(start + 4);
-      setEnd(end + 4);
-    }
-  };
+  }, [productCategory])  
 
   return (
-    <div className="container-fluid">
+     <div className="container-fluid">
       <div className="search">
         <input
           type="search"
@@ -80,7 +63,6 @@ const Product = () => {
             product !== null &&
             product.length > 0
               ? product
-                  .slice(start, end)
                   .filter((item) =>
                     item.title.toLowerCase().includes(searchInput.toLowerCase())
                   )
@@ -115,45 +97,9 @@ const Product = () => {
               : ""}
           </div>
         </div>
-      </div>
-      <div className="paginate mx-auto text-center">
-        <nav aria-label="Page navigation example">
-          <ul className="pagination">
-            <li class="page-item" onClick={previewProduct}>
-              <a class="page-link text-dark" href="#">
-                Previous
-              </a>
-            </li>
-            <li className="page-item" onClick={handlePagination}>
-              <a class="page-link text-dark" href="#">
-                1
-              </a>
-            </li>
-            <li className="page-item" onClick={handlePagination}>
-              <a class="page-link text-dark" href="#">
-                2
-              </a>
-            </li>
-            <li className="page-item" onClick={handlePagination}>
-              <a class="page-link text-dark" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item" onClick={handlePagination}>
-              <a class="page-link text-dark" href="#">
-                4
-              </a>
-            </li>
-            <li class="page-item" onClick={nextProduct}>
-              <a class="page-link text-dark" href="#">
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      </div> 
     </div>
-  );
-};
+  )
+}
 
-export default Product;
+export default SearchPage
