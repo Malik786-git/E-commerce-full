@@ -22,7 +22,7 @@ const SearchPage = () => {
     setLoader(true);
 
    const SearchProducts = async ()=> {
-      const res = await fetch(`https://fakestoreapi.com/products/category/jewelery`);
+      const res = await fetch(`https://fakestoreapi.com/products/category/${productCategory}`);
        const data = await res.json();
        setProduct(data);
        setLoader(false);
@@ -69,28 +69,32 @@ const SearchPage = () => {
                   .map((data) => (
                     <>
                       <div className="col-xl-3 col-lg-4 col-md-6 col-12 mb-3 ">
-                        <Link
-                          className="product-card-link"
-                          to={`single?id=${data?.id}`}
-                        >
-                          <Card
-                            className="product-card"
-                            style={{ width: "16rem", height: "450px" }}
+                      <Card
+                            className="product-card text-center"
+                            
                           >
-                            <Card.Img
-                              variant="top"
-                              src={data?.image}
-                              height="300px"
-                            />
+                            <Link
+                              to={`single?id=${data?.id}`}
+                            >
+                              <Card.Img
+                                variant="top"
+                                src={data?.image}
+                                className="product-card-img"
+                              />
+                            </Link>
+
                             <Card.Body className="product-desc">
-                              <Card.Title>{data?.title}</Card.Title>
-                              <Card.Subtitle className="mb-2 text-muted">
+                              <Card.Title >
+                                {data?.title.substring(0, 15)}
+                              </Card.Title>
+                              <Card.Subtitle className="mb-2">
                                 $ {data?.price}
                               </Card.Subtitle>
-                              <Card.Text>{data?.description}</Card.Text>
+                              <button className="btn btn-dark shopping-btn mx-auto">
+                                Add to cart
+                              </button>
                             </Card.Body>
                           </Card>
-                        </Link>
                       </div>
                     </>
                   ))

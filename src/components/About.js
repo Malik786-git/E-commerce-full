@@ -22,7 +22,6 @@ const ResList = () => {
       });
   }, [loadmore]);
 
-  console.log(restuarant);
 
   return (
     <div>

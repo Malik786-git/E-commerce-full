@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import QuantityButton from "./subComponenets/QuantityButton";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/action";
 
 const Single = () => {
@@ -10,6 +10,7 @@ const Single = () => {
   const [singleProduct, setSingleProduct] = useState({});
   const [singleLoader, setSingleLoader] = useState(false);
   const [addCount, setAddCount] = useState(0);
+  const [quantity,setQuantity] = useState(1);
   // add to card to redux
   const alreadyAdded = useSelector((state) => state.AddedProductList);
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const Single = () => {
 
   
   const handleAddCart = () => {
-    // check if product already exists or not
+    // check product already add or not
     const productExist = alreadyAdded.some(
       (data) => Number(data.id) === Number(productId)
     );
@@ -27,9 +28,16 @@ const Single = () => {
       return;
     }
     // add new product
-    dispatch(addToCart(singleProduct));
+    dispatch(addToCart({singleProduct, quantity}));
     setAddCount(addCount + 1);
   };
+
+
+// GET QUANTITY VALUE
+const getQuantity = (q)=> {
+  setQuantity(q);
+}
+
 
   const productId = searchParams.get("id");
 
@@ -43,10 +51,12 @@ const Single = () => {
       });
   }, [productId]);
 
+
   // get payment token
   const onToken = (token) => {
     console.log(token);
   };
+
   return (
     <>
       <div className="container">
@@ -66,7 +76,7 @@ const Single = () => {
 
               <p>{singleProduct?.description}</p>
 
-              <QuantityButton />
+              <QuantityButton getQuantity={getQuantity} />
               <div className="shopping-btns-container d-flex">
                 <StripeCheckout
                   name={singleProduct.title}
@@ -80,7 +90,6 @@ const Single = () => {
                     Buy Now
                   </button>
                 </StripeCheckout>
-
                 <button
                   className="btn btn-dark shopping-btn"
                   onClick={handleAddCart}

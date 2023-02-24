@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchModel = ({ searchModel, searchToggle }) => {
+
   const [search, setSearch] = useState("");
+  const modalRef= useRef("");
   const navigation = useNavigate();
+
+  console.log(modalRef.current);
+
+
+  window.addEventListener("click", function(event) {
+    if (event.target === modalRef.current) {
+      searchToggle()
+    }
+  });
+  
 
   const searchProductNavigate = () => {
     searchToggle();
@@ -13,7 +25,7 @@ const SearchModel = ({ searchModel, searchToggle }) => {
   return (
     <>
       {searchModel ? (
-        <div className="Search_Model">
+        <div className="Search_Model" ref={modalRef} >
           <span
             className="display-1 text-light closeSearchModel"
             onClick={() => searchToggle()}

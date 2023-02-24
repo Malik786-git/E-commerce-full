@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const QuantityButton = () => {
+const QuantityButton = ({getQuantity}) => {
   const [quantity, setQuantity] = useState(1);
   const [minus, setMinus] = useState(false);
 
@@ -11,14 +11,17 @@ const QuantityButton = () => {
     } else {
       setMinus(true);
     }
+    getQuantity(quantity);
   };
   const PlusQuantityHandle = () => {
     setMinus(false);
     if (quantity < 20) {
       setQuantity(quantity + 1);
     }
+    getQuantity(quantity);
   };
 
+  
   return (
     <>
       <div className="quantity-btn my-2">
@@ -33,7 +36,6 @@ const QuantityButton = () => {
         <input
           type="number"
           value={quantity}
-          // onChange={(e) => setQuantity(e.target.value)}
         />
         <button className="bg-dark text-light" onClick={PlusQuantityHandle}>
           {"+"}
